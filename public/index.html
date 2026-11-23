@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AusEcon</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23116a5c'/><path d='M7 22l6-7 5 4 7-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f5; --surface:#ffffff; --surface-2:#eef1ee; --text:#17201d; --muted:#5d6a65;
+  --border:#dde3df; --accent:#116a5c; --accent-soft:#dcefe9;
+  --abs:#1f6fb2; --rba:#116a5c; --intl:#9a5b13;
+  --high:#c2410c; --medium:#a16207; --low:#6b7280;
+  --s1:#116a5c; --s2:#c2410c; --band:rgba(17,106,92,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1412; --surface:#171e1b; --surface-2:#1e2723; --text:#e7ece9; --muted:#9aa8a2;
+    --border:#2a3530; --accent:#4cc3a8; --accent-soft:#183a32;
+    --abs:#6aaee8; --rba:#4cc3a8; --intl:#e0a458;
+    --high:#fb923c; --medium:#facc15; --low:#9ca3af;
+    --s1:#4cc3a8; --s2:#fb923c; --band:rgba(76,195,168,.10);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1412; --surface:#171e1b; --surface-2:#1e2723; --text:#e7ece9; --muted:#9aa8a2;
+  --border:#2a3530; --accent:#4cc3a8; --accent-soft:#183a32;
+  --abs:#6aaee8; --rba:#4cc3a8; --intl:#e0a458;
+  --high:#fb923c; --medium:#facc15; --low:#9ca3af;
+  --s1:#4cc3a8; --s2:#fb923c; --band:rgba(76,195,168,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.logo svg{width:28px;height:28px}
+nav{display:flex;gap:4px;margin-left:auto}
+nav button{border:0;background:none;color:var(--muted);font:inherit;font-weight:500;padding:8px 12px;border-radius:8px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent)}
+.mock{font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 8px;border-radius:99px}
+main{padding:28px 0 60px}
+h1{font-size:24px;margin:0 0 4px;letter-spacing:-.02em}
+.lede{color:var(--muted);margin:0 0 22px}
+section[hidden]{display:none}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--border);background:var(--surface);color:var(--text);font:inherit;font-size:13px;padding:5px 12px;border-radius:99px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.day{display:grid;grid-template-columns:104px 1fr;border-bottom:1px solid var(--border)}
+.day:last-child{border-bottom:0}
+.dlabel{padding:12px 16px;border-right:1px solid var(--border)}
+.dlabel b{display:block;font-size:16px;line-height:1.2;white-space:nowrap}
+.dlabel span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.ev{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.ev+.ev{border-top:1px dashed var(--border)}
+.time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;width:44px;flex:none}
+.src{font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;color:var(--surface);flex:none;width:42px;text-align:center}
+.src.ABS{background:var(--abs)}.src.RBA{background:var(--rba)}.src.Intl{background:var(--intl)}
+.ev .t{flex:1;min-width:0}
+.imp{display:flex;gap:3px;flex:none}
+.imp i{width:6px;height:14px;border-radius:2px;background:var(--border)}
+.imp.high i{background:var(--high)}.imp.medium i:nth-child(-n+2){background:var(--medium)}.imp.low i:first-child{background:var(--low)}
+.today{color:var(--accent)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.rep{padding:18px}
+.rep .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:6px}
+.rep h3{margin:0 0 8px;font-size:17px}
+.rep p{margin:0 0 10px}
+.rep ul{margin:0 0 12px;padding-left:18px;color:var(--muted)}
+.tag{font-size:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:1px 7px;margin-right:4px}
+.chartcard{padding:18px}
+.chartcard h3{margin:0;font-size:16px}
+.chartcard .sub{color:var(--muted);font-size:13px;margin-bottom:10px}
+.chartcard .cv{position:relative;height:240px}
+.chartcard .foot{color:var(--muted);font-size:12px;margin-top:8px}
+.empty{padding:24px;color:var(--muted);text-align:center}
+@media (max-width:640px){
+  .bar{height:auto;flex-wrap:wrap;padding:10px 16px;gap:8px}
+  nav{margin-left:0;width:100%}
+  nav button{flex:1}
+  .day{grid-template-columns:76px 1fr}
+  .dlabel{padding:12px 10px}
+  .ev{flex-wrap:wrap;gap:8px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <div class="logo"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="var(--accent)"/><path d="M7 22l6-7 5 4 7-9" stroke="var(--surface)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>AusEcon</div>
+  <span class="mock">Mock-up · sample data</span>
+  <nav role="tablist">
+    <button role="tab" data-tab="calendar" aria-selected="true">Calendar</button>
+    <button role="tab" data-tab="reports" aria-selected="false">Reports</button>
+    <button role="tab" data-tab="charts" aria-selected="false">Chart pack</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section id="calendar">
+    <h1>Release calendar</h1>
+    <p class="lede">Upcoming RBA and ABS releases plus key international dates. Times AEDT.</p>
+    <div class="filters" id="calFilters"></div>
+    <div class="card" id="calList"></div>
+  </section>
+
+  <section id="reports" hidden>
+    <h1>Report summaries</h1>
+    <p class="lede">Digests of research newsletters, newest first.</p>
+    <div class="filters" id="repFilters"></div>
+    <div class="grid" id="repList"></div>
+  </section>
+
+  <section id="charts" hidden>
+    <h1>Chart pack</h1>
+    <p class="lede">Key Australian macro indicators.</p>
+    <div class="grid" id="chartList"></div>
+  </section>
+</main>
+
+<script src="vendor/chart.umd.min.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt = (d, o) => new Date(d + "T00:00:00").toLocaleDateString("en-AU", o);
+const todayISO = new Date().toISOString().slice(0,10);
+
+// Tabs (remembered per viewer)
+function show(tab){
+  document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  document.querySelectorAll("main section").forEach(s => s.hidden = s.id !== tab);
+  if (tab === "charts") drawCharts();
+  try { localStorage.setItem("tab", tab); } catch(e) {}
+}
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => show(b.dataset.tab));
+
+function chips(el, values, onChange){
+  let active = "All";
+  el.innerHTML = ["All", ...values].map(v => `<button class="chip" aria-pressed="${v==="All"}">${v}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(c => c.onclick = () => {
+    active = c.textContent;
+    el.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === c));
+    onChange(active);
+  });
+}
+
+// Calendar
+let cal = [];
+function renderCal(filter){
+  const items = cal.filter(e => filter === "All" || e.source === filter);
+  const byDay = {};
+  items.forEach(e => (byDay[e.date] ??= []).push(e));
+  const days = Object.keys(byDay).sort();
+  $("#calList").innerHTML = days.length ? days.map(d => `
+    <div class="day">
+      <div class="dlabel ${d===todayISO?"today":""}"><span>${fmt(d,{weekday:"short"})}</span><b>${fmt(d,{day:"numeric",month:"short"})}</b></div>
+      <div>${byDay[d].sort((a,b)=>a.time.localeCompare(b.time)).map(e => `
+        <div class="ev"><span class="time">${e.time}</span><span class="src ${e.source}">${e.source}</span>
+        <span class="t">${e.title}</span><span class="imp ${e.importance}" title="${e.importance} importance"><i></i><i></i><i></i></span></div>`).join("")}
+      </div>
+    </div>`).join("") : `<div class="empty">No releases.</div>`;
+}
+
+// Reports
+let reps = [];
+function renderReps(filter){
+  const items = reps.filter(r => filter === "All" || r.tags.includes(filter)).sort((a,b)=>b.date.localeCompare(a.date));
+  $("#repList").innerHTML = items.map(r => `
+    <article class="card rep">
+      <div class="meta"><span>${fmt(r.date,{day:"numeric",month:"short",year:"numeric"})}</span>·<span>${r.source}</span></div>
+      <h3>${r.title}</h3>
+      <p>${r.summary}</p>
+      <ul>${r.points.map(p=>`<li>${p}</li>`).join("")}</ul>
+      <div>${r.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    </article>`).join("") || `<div class="empty">No reports.</div>`;
+}
+
+// Charts
+let chartsDef = [], drawn = false;
+function drawCharts(){
+  if (drawn || !window.Chart) return; drawn = true;
+  const text = css("--muted"), grid = css("--border"), colors = [css("--s1"), css("--s2")];
+  Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+  Chart.defaults.color = text;
+  $("#chartList").innerHTML = chartsDef.map(c => `
+    <div class="card chartcard"><h3>${c.title}</h3><div class="sub">${c.subtitle}</div>
+    <div class="cv"><canvas id="c_${c.id}"></canvas></div><div class="foot">Source: ABS, RBA · sample data</div></div>`).join("");
+  chartsDef.forEach(c => {
+    const bandPlugin = c.band ? [{id:"band", beforeDraw(ch){
+      const {ctx, chartArea:a, scales:{y}} = ch;
+      ctx.save(); ctx.fillStyle = css("--band");
+      ctx.fillRect(a.left, y.getPixelForValue(c.band[1]), a.right-a.left, y.getPixelForValue(c.band[0]) - y.getPixelForValue(c.band[1]));
+      ctx.restore();
+    }}] : [];
+    new Chart($("#c_"+c.id), {
+      type: c.type === "bar" ? "bar" : "line",
+      data: { labels: c.labels, datasets: c.series.map((s,i) => ({
+        label: s.name, data: s.data, borderColor: colors[i], backgroundColor: colors[i],
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, stepped: c.type === "step", tension: 0,
+        borderRadius: c.type === "bar" ? 4 : 0 })) },
+      options: { maintainAspectRatio:false, interaction:{mode:"index",intersect:false},
+        plugins:{ legend:{display:c.series.length>1, position:"bottom", labels:{boxWidth:10,boxHeight:10}} },
+        scales:{ x:{grid:{display:false}}, y:{grid:{color:grid}, border:{display:false}} } },
+      plugins: bandPlugin
+    });
+  });
+}
+
+Promise.all(["calendar","reports","charts"].map(f => fetch(`data/${f}.json`).then(r => r.json())))
+  .then(([c, r, ch]) => {
+    cal = c.filter(e => e.date >= todayISO); reps = r; chartsDef = ch;
+    chips($("#calFilters"), ["RBA","ABS","Intl"], renderCal); renderCal("All");
+    chips($("#repFilters"), [...new Set(r.flatMap(x => x.tags))], renderReps); renderReps("All");
+    let t = "calendar"; try { t = localStorage.getItem("tab") || t; } catch(e) {}
+    show(t);
+  });
+</script>
+</body>
+</html>

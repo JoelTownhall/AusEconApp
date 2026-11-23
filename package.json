@@ -1,0 +1,12 @@
+{
+  "name": "auseconapp",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "chart.js": "^4.4.1",
+    "wrangler": "^4.0.0"
+  }
+}

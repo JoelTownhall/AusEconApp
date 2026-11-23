@@ -1,0 +1,11 @@
+[
+  {"date":"2026-11-22","source":"Newsletter A","title":"Services inflation proving sticky","tags":["Inflation","RBA"],
+   "summary":"Argues trimmed mean is tracking above the RBA's forecast path, driven by insurance, rents and market services. Sees the bar for further easing as high into early 2027.",
+   "points":["Market services inflation running ~4% annualised","Rents decelerating but slowly","Risk skewed to a hawkish hold in December"]},
+  {"date":"2026-11-20","source":"Newsletter B","title":"Labour market cooling at the margins","tags":["Labour"],
+   "summary":"Hours worked and job ads both softened in recent months, though the unemployment rate remains low. Suggests a gradual loosening rather than a sharp turn.",
+   "points":["Job ads down for third straight month","Participation near record highs","Wage growth easing toward 3%"]},
+  {"date":"2026-11-18","source":"Newsletter C","title":"China stimulus and the iron ore outlook","tags":["Global","Commodities"],
+   "summary":"Reviews the latest round of Chinese property support measures. Views the impact on steel demand as modest, keeping iron ore range-bound and the terms of trade drifting lower.",
+   "points":["Property starts still contracting","Infrastructure spend front-loaded","AUD sensitivity to iron ore has fallen"]}
+]

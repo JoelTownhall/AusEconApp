@@ -1,0 +1,16 @@
+[
+  {"date":"2026-11-25","time":"11:30","source":"ABS","title":"Monthly CPI Indicator (Oct)","importance":"high"},
+  {"date":"2026-11-26","time":"11:30","source":"ABS","title":"Construction Work Done (Sep qtr)","importance":"medium"},
+  {"date":"2026-11-27","time":"11:30","source":"ABS","title":"Private New Capital Expenditure (Sep qtr)","importance":"medium"},
+  {"date":"2026-12-01","time":"11:30","source":"ABS","title":"Business Indicators (Sep qtr)","importance":"medium"},
+  {"date":"2026-12-02","time":"11:30","source":"ABS","title":"National Accounts – GDP (Sep qtr)","importance":"high"},
+  {"date":"2026-12-04","time":"00:30","source":"Intl","title":"US Non-Farm Payrolls (Nov)","importance":"high"},
+  {"date":"2026-12-08","time":"14:30","source":"RBA","title":"Monetary Policy Decision","importance":"high"},
+  {"date":"2026-12-10","time":"06:00","source":"Intl","title":"FOMC Rate Decision","importance":"high"},
+  {"date":"2026-12-11","time":"00:30","source":"Intl","title":"US CPI (Nov)","importance":"high"},
+  {"date":"2026-12-17","time":"11:30","source":"ABS","title":"Labour Force (Nov)","importance":"high"},
+  {"date":"2026-12-17","time":"11:30","source":"RBA","title":"Bulletin – December","importance":"low"},
+  {"date":"2026-12-18","time":"00:15","source":"Intl","title":"ECB Monetary Policy Decision","importance":"high"},
+  {"date":"2026-12-18","time":"14:00","source":"Intl","title":"BoJ Policy Decision","importance":"medium"},
+  {"date":"2026-12-22","time":"11:30","source":"RBA","title":"Minutes of December Board Meeting","importance":"medium"}
+]
